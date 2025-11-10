@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from datetime import datetime
+import datetime
 import uvicorn
 
 app = FastAPI(title="Sample API", version="1.0.0")
@@ -17,7 +17,7 @@ async def root():
     """Root endpoint returning health status"""
     return HealthResponse(
         status="healthy",
-        timestamp=datetime.now(datetime.timezone.utc).isoformat(),
+        timestamp=datetime.datetime.now(datetime.timezone.utc).isoformat(),
         message="Welcome to the Sample API!1"
     )
 
@@ -27,7 +27,7 @@ async def health_check():
     """Health check endpoint for container orchestration"""
     return HealthResponse(
         status="healthy",
-        timestamp=datetime.now(datetime.timezone.utc).isoformat(),
+        timestamp=datetime.datetime.now(datetime.timezone.utc).isoformat(),
         message="Service is running2"
     )
 
