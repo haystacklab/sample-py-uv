@@ -45,7 +45,6 @@ jobs:
         push: true
         tags: |
           ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
         cache-from: type=registry,ref=${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:buildcache
         cache-to: type=registry,ref=${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:buildcache,mode=max
 
