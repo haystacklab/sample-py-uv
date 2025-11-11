@@ -41,7 +41,23 @@ async def root():
         },
         'example': 'curl http://localhost:8000/api/get-data'
     }
-
+    
+@app.post("/chat")
+async def chat(request: dict):
+    """
+    {
+        message: message,
+        model: settings.model,
+        temperature: settings.temperature,
+        max_tokens: settings.maxTokens,
+      }
+    """
+    try:
+        return {
+            'message': 'Hello, World!'
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/health")
 async def health_check():
