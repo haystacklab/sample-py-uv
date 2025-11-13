@@ -41,8 +41,8 @@ async def chat(request: dict):
         client = AIFoundryClient()
         response = client.chat_completion(
             messages=messages,
-            temperature=dict.temperature,
-            max_tokens=dict.maxTokens
+            temperature=request['temperature'],
+            max_tokens=request['max_tokens']
         )
         if response:
             return {
