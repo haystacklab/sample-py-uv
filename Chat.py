@@ -17,8 +17,8 @@ class AIFoundryClient:
         
         # Initialize client once
         try:
-            self.client = AIProjectClient.from_connection_string(
-                conn_str=self.conn_str,
+            self.client = AIProjectClient(
+                endpoint=self.conn_str,
                 credential=DefaultAzureCredential()
             )
         except Exception as e:

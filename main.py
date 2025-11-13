@@ -36,6 +36,7 @@ async def chat(request: dict):
       }
     """
     messages = [{"role": "user", "content": request['message']}]
+    print(f"Received chat request: {request['message']}")
     try:
         client = AIFoundryClient()
         response = client.chat_completion(
@@ -52,6 +53,7 @@ async def chat(request: dict):
                 'message': 'Hello, World1!'
             }
     except Exception as e:
+        print(f"Error in /chat endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/health")
