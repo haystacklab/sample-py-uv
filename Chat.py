@@ -12,12 +12,18 @@ class AIFoundryClient:
         
         self.deployment_name = os.getenv("AZURE_AI_DEPLOYMENT_NAME")
         
+        print(f"Initialized AIFoundryClient with deployment: {self.deployment_name}")
+        print(f"Initialized AIFoundryClient with AZURE_AI_PROJECT_CONNECTION_STRING: {self.conn_str}")
+        
         # Initialize client once
-        self.client = AIProjectClient.from_connection_string(
-            conn_str=self.conn_str,
-            credential=DefaultAzureCredential()
-        )
-    
+        try:
+            self.client = AIProjectClient.from_connection_string(
+                conn_str=self.conn_str,
+                credential=DefaultAzureCredential()
+            )
+        except Exception as e:
+            print(f"Failed to initialize AIFoundryClient: {str(e)}")
+            
     def chat_completion(
         self,
         messages: List[Dict[str, str]],
@@ -76,4 +82,5 @@ class AIFoundryClient:
             return response
             
         except Exception as e:
+            print(f"Chat completion failed: {str(e)}")
             raise Exception(f"Chat completion failed: {str(e)}")
