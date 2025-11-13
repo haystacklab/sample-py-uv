@@ -1,6 +1,7 @@
 from openai import AzureOpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from typing import List, Dict, Optional
+import os
 
 class AzureOpenAIClient:
     def __init__(self, connection_string: Optional[str] = None):
