@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import os
 from Chat import AIFoundryClient
+from Chat_openai import AzureOpenAIClient
 
 app = FastAPI(
     title="API Gateway Service",
@@ -38,7 +39,7 @@ async def chat(request: dict):
     messages = [{"role": "user", "content": request['message']}]
     print(f"Received chat request: {request['message']}")
     try:
-        client = AIFoundryClient()
+        client = AzureOpenAIClient()
         response = client.chat_completion(
             messages=messages,
             temperature=request['temperature'],

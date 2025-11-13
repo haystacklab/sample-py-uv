@@ -56,6 +56,7 @@ class AIFoundryClient:
             return response.choices[0].message.content
             
         except Exception as e:
+            print(f"Chat completion failed: {str(e)}")
             raise Exception(f"Chat completion failed: {str(e)}")
     
     def chat_completion_full_response(
