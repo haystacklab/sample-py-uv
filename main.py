@@ -35,7 +35,7 @@ async def chat(request: dict):
         max_tokens: settings.maxTokens,
       }
     """
-    messages = [{"role": "user", "content": dict.message}]
+    messages = [{"role": "user", "content": request.message}]
     try:
         client = AIFoundryClient()
         response = client.chat_completion(
