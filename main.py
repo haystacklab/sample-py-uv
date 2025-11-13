@@ -1,29 +1,12 @@
 from fastapi import FastAPI, HTTPException
-import requests
 import os
+from Chat import AIFoundryClient
 
 app = FastAPI(
     title="API Gateway Service",
     description="FastAPI service with uvicorn to call external APIs",
     version="1.0.0"
 )
-
-
-def basic_get_request():
-    api_url = os.getenv('API_URL', 'https://jsonplaceholder.typicode.com/posts/1')
-    try:
-        response = requests.get(api_url, timeout=10)
-        response.raise_for_status()
-        
-        return {
-            'success': True,
-            'status_code': response.status_code,
-            'data': response.json()
-        }
-    except requests.exceptions.Timeout:
-        raise HTTPException(status_code=408, detail="Request timed out")
-    except requests.exceptions.RequestException as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/")
@@ -52,10 +35,21 @@ async def chat(request: dict):
         max_tokens: settings.maxTokens,
       }
     """
+    messages = [{"role": "user", "content": dict.message}]
     try:
-        return {
-            'message': 'Hello, World!'
-        }
+        response = AIFoundryClient.chat_completion(
+            messages=messages,
+            temperature=dict.temperature,
+            max_tokens=dict.maxTokens
+        )
+        if response:
+            return {
+                'message': response.message
+            }
+        else:
+            return {
+                'message': 'Hello, World1!'
+            }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -67,13 +61,6 @@ async def health_check():
         'message': 'API is running',
         'server': 'uvicorn'
     }
-
-
-@app.get("/api/get-data")
-async def get_data_endpoint():
-    result = basic_get_request()
-    return result
-
 
 if __name__ == "__main__":
     import uvicorn
