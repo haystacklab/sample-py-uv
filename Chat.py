@@ -44,8 +44,9 @@ class AIFoundryClient:
         Returns:
             str: The assistant's response text
         """
+        openai_client = self.client.get_openai_client()
         try:
-            response = self.client.inference.chat.completions.create(
+            response = openai_client.chat.completions.create(
                 model=self.deployment_name,
                 messages=messages,
                 temperature=temperature,
