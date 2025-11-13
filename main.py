@@ -37,7 +37,8 @@ async def chat(request: dict):
     """
     messages = [{"role": "user", "content": dict.message}]
     try:
-        response = AIFoundryClient.chat_completion(
+        client = AIFoundryClient()
+        response = client.chat_completion(
             messages=messages,
             temperature=dict.temperature,
             max_tokens=dict.maxTokens
