@@ -44,7 +44,7 @@ class AIFoundryClient:
         Returns:
             str: The assistant's response text
         """
-        openai_client = self.client.get_openai_client()
+        openai_client = self.client.get_openai_client(api_version="2024-10-21")
         try:
             response = openai_client.chat.completions.create(
                 model=self.deployment_name,
